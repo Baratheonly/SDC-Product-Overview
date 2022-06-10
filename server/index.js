@@ -1,13 +1,15 @@
 const express = require("express");
 require("dotenv").config();
+const queries = require("./queries.js");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/products", (req, res) => {
-  console.log("hello products");
+app.get("/products", async (req, res) => {
+  let page = req.query.page || 1;
+  let count = req.query.count || 5;
 });
 
 app.get("/products/:id", (req, res) => {
