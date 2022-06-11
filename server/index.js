@@ -18,14 +18,20 @@ app.get("/products", (req, res) => {
 app.get("/products/:product_id", (req, res) => {
   queries
     .getProductsById(req.params.product_id)
-    .then((result) => res.status(200).send(result.rows[0]))
+    .then((result) => res.status(200).send(result))
     .catch((err) => console.error(err));
 });
 
 app.get("/products/:product_id/styles", (req, res) => {
   queries
     .getStylesById(req.params.product_id)
-    .then((result) => res.status(200).send(result.rows[0]))
+    .then((result) => {
+      let formammatedResult = {
+        product_id: result.rows[0].productId,
+        results: result.rows,
+      };
+      res.status(200).send(formammatedResult);
+    })
     .catch((err) => console.error(err));
 });
 

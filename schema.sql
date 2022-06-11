@@ -54,3 +54,33 @@ CREATE TABLE IF NOT EXISTS related
     current_product_id integer NOT NULL REFERENCES products (id) ON DELETE CASCADE,
     related_product_id integer NOT NULL,
 )
+
+COPY products (id, name, slogan, description, category, default_price)
+FROM 'C:\Users\Kenny\Desktop\SDC\product.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY styles (id, productId, name, default_style, original_price, sale_price)
+FROM 'C:\Users\Kenny\Desktop\SDC\styles.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY skus (id, styleId, size, quantity)
+FROM 'C:\Users\Kenny\Desktop\SDC\skus.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY photos (id, styleId, url, thumbnail_url)
+FROM 'C:\Users\Kenny\Desktop\SDC\photos.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY features (id, product_id, feature, value)
+FROM 'C:\Users\Kenny\Desktop\SDC\features.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY related (id, current_product_id, related_product_id)
+FROM 'C:\Users\Kenny\Desktop\SDC\related.csv'
+DELIMITER ','
+CSV HEADER;
