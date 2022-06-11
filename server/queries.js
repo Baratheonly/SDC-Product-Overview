@@ -1,11 +1,7 @@
-const db = require("./db.js");
+const pool = require("./db.js");
 
-module.exports = {
-  getProducts: async function () {
-    try {
-      const result = await db.query("SELECT * FROM products;");
-    } catch (err) {
-      console.error(err);
-    }
-  },
+const getProducts = (count, page) => {
+  return pool.query(`SELECT * FROM products ORDER BY id LIMIT ${count}`);
 };
+
+module.exports = getProducts;
