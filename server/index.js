@@ -1,10 +1,14 @@
 const express = require("express");
 require("dotenv").config();
 const queries = require("./queries.js");
+var morgan = require("morgan");
+var cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
+app.use(cors());
 
 app.get("/products", (req, res) => {
   let count = req.query.count || 5;
@@ -72,7 +76,13 @@ app.get("/products/:product_id/styles", (req, res) => {
 app.get("/products/:product_id/related", (req, res) => {
   queries
     .getRelatedById(req.params.product_id)
-    .then((result) => res.status(200).send(result.rows[0]))
+    .then((result) => {
+      const relatedProducts = [];
+      result.rows.forEach((value) =>
+        relatedProducts.push(value.related_product_id)
+      );
+      res.status(200).send(relatedProducts);
+    })
     .catch((err) => console.error(err));
 });
 
@@ -81,3 +91,5 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+module.exports = app;
