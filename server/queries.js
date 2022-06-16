@@ -15,7 +15,7 @@ const getProductsById = (product_id) => {
 //init query 1238.337ms
 const getStylesById = (product_id) => {
   return pool.query(
-    `SELECT * FROM styles as s LEFT JOIN skus as sk ON sk."styleId" = s.id JOIN photos as p ON p."styleId" = s.id WHERE s."productId" =${product_id}`
+    `SELECT * FROM styles as s LEFT JOIN skus as sk ON sk.styleId = s.id JOIN photos as p ON p.styleId = s.id WHERE s.productId =${product_id}`
   );
   //`SELECT * FROM styles WHERE styles."productId"=${product_id}`
   // SELECT * FROM styles JOIN products on styles."productId" = products.id;
