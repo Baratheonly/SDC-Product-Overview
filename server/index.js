@@ -88,6 +88,10 @@ app.get("/products/:product_id/related", (req, res) => {
 
 const port = 3000;
 
+app.get(`/loaderio-25f44bcbaecb448f7943aada4302dbb2`, (req, res) => {
+  res.send(`loaderio-25f44bcbaecb448f7943aada4302dbb2`);
+});
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
