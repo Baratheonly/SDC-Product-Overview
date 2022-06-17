@@ -1,14 +1,14 @@
 const express = require("express");
 require("dotenv").config();
 const queries = require("./queries.js");
-var morgan = require("morgan");
-var cors = require("cors");
+// var morgan = require("morgan");
+// var cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
-app.use(morgan("dev"));
-app.use(cors());
+// app.use(morgan("dev"));
+// app.use(cors());
 
 app.get("/products", (req, res) => {
   let count = req.query.count || 5;
@@ -83,17 +83,3 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-
-// SELECT json_agg(json_build_object(
-//   'style_id', id,
-//   'name', name,
-//   'original_price', original_price,
-//   'sale_price', sale_price,
-//   'default_style', default_style,
-//   'photos', (SELECT json_agg(json_build_object(
-//     'thumbnail_url', thumbnail_url,
-//     'url', url
-//     )) FROM photos WHERE styleid=id)
-//   )) FROM styles WHERE productid=1
-
-// SELECT json_agg(json_build_object('style_id', id, 'name', name, 'original_price', original_price, 'sale_price', sale_price, 'default_style', default_style, 'photos', (SELECT json_agg(json_build_object('thumbnail_url', thumbnail_url, 'url', url)) FROM photos WHERE styleId=1), 'skus', (SELECT json_agg(json_build_object('quantity', quantity, 'size', size)) FROM skus WHERE styleId = 1))) FROM styles WHERE productId=1;
