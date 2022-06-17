@@ -50,23 +50,9 @@ app.get("/products/:product_id/styles", (req, res) => {
   queries
     .getStylesById(req.params.product_id)
     .then((result) => {
-      console.log(result.rows, "here");
-      const results = [];
-      result.rows.forEach((style) => {
-        const styleEntry = {
-          style_id: style.id,
-          name: style.name,
-          original_price: style.original_price,
-          sale_price: style.sale_price,
-          "default?": style.default_style,
-          photos: [],
-          skus: {},
-        };
-        results.push(styleEntry);
-      });
-      const formammatedResult = {
+      let formammatedResult = {
         product_id: req.params.product_id,
-        results: results,
+        result: result.rows[0].json_agg,
       };
       res.status(200).send(formammatedResult);
     })
@@ -97,3 +83,17 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+
+// SELECT json_agg(json_build_object(
+//   'style_id', id,
+//   'name', name,
+//   'original_price', original_price,
+//   'sale_price', sale_price,
+//   'default_style', default_style,
+//   'photos', (SELECT json_agg(json_build_object(
+//     'thumbnail_url', thumbnail_url,
+//     'url', url
+//     )) FROM photos WHERE styleid=id)
+//   )) FROM styles WHERE productid=1
+
+// SELECT json_agg(json_build_object('style_id', id, 'name', name, 'original_price', original_price, 'sale_price', sale_price, 'default_style', default_style, 'photos', (SELECT json_agg(json_build_object('thumbnail_url', thumbnail_url, 'url', url)) FROM photos WHERE styleId=1), 'skus', (SELECT json_agg(json_build_object('quantity', quantity, 'size', size)) FROM skus WHERE styleId = 1))) FROM styles WHERE productId=1;
