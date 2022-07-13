@@ -16,6 +16,8 @@ const getProductsById = (product_id) => {
 
 //init query 1238.337ms
 //deployed unopt 89ms
+//preindex deploy 371745 ms
+//post index deploy 36 ms
 const getStylesById = (product_id) => {
   return pool.query(
     `SELECT json_agg(json_build_object(
@@ -28,14 +30,14 @@ const getStylesById = (product_id) => {
         'thumbnail_url', thumbnail_url,
         'url', url
       ))
-      FROM photos WHERE photos.styleid = styles.id),
+      FROM photos WHERE photos."styleId" = styles.id),
       'skus', (SELECT json_object_agg(id, json_build_object(
         'quantity', quantity,
         'size', size
       ))
-      FROM skus WHERE skus.styleId = styles.id)
+      FROM skus WHERE skus."styleId" = styles.id)
     ))
-    FROM styles WHERE productId=${product_id};`
+    FROM styles WHERE styles."productId"=${product_id};`
   );
 };
 

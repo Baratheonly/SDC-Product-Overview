@@ -2,13 +2,11 @@ const express = require("express");
 require("dotenv").config();
 const queries = require("./queries.js");
 // var morgan = require("morgan");
-// var cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
 // app.use(morgan("dev"));
-// app.use(cors());
 
 app.get("/products", (req, res) => {
   let count = req.query.count || 5;
