@@ -20,6 +20,6 @@ Baratheonly is a project with the purpose of replacing an outdated unoptimized l
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Node.js](https://img.shields.io/badge/node.js-%2320232a.svg?style=for-the-badge&logo=node.js&logoColor=#03adfc)
-![Express](https://img.shields.io/badge/express.js-%23E34F26.svg?style=for-the-badge&logo=express&logoColor=white)
+![Express](https://img.shields.io/badge/express.js-%23E34F26.svg?style=for-the-badge&logo=express&logoColor=#AEE1E1)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-%23E34F26.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![AWS](https://img.shields.io/badge/aws-%231572B6.svg?style=for-the-badge&logo=aws&logoColor=white)
