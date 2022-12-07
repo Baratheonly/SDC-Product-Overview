@@ -23,4 +23,4 @@ Baratheonly is a project with the purpose of replacing an outdated unoptimized l
 ![Express](https://img.shields.io/badge/express.js-%2320232a.svg?style=for-the-badge&logo=express&logoColor=blue)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-white?style=for-the-badge&labelColor=black&logo=postgresql&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-orange?style=for-the-badge&logo=AWS&logoColor=orange)
-![NGINX](https://img.shields.io/badge/NGINX-232931?style=for-the-badge&logo=nginx&logoColor=008e36)
+![NGINX](https://img.shields.io/badge/NGINX-232931?style=for-the-badge&logo=nginx&logoColor=393E46)
