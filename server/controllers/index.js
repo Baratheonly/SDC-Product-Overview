@@ -3,7 +3,7 @@ const queries = require("../models/queries");
 module.exports = {
   getProducts: async function (req, res) {
     let count = req.query.count || 5;
-    let page = req.query.page || 1;
+    let page = req.query.page - 1 || 0;
     try {
       let result = await queries.getProducts(count, page);
       res.status(200).send(result.rows);

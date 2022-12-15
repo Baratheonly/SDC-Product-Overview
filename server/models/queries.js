@@ -3,14 +3,18 @@ const pool = require("../db.js");
 //init query 34.270ms
 //deployed unopt 114ms
 const getProducts = (count, page) => {
-  return pool.query(`SELECT * FROM products ORDER BY id LIMIT ${count}`);
+  return pool.query(`SELECT * FROM products ORDER BY id LIMIT $1 OFFSET $2`, [
+    count,
+    page,
+  ]);
 };
 
 //init query 92.544ms
 //deployed unopt 105ms
 const getProductsById = (product_id) => {
   return pool.query(
-    `SELECT p.id, p.name, p.slogan, p.description, p.category, p.default_price, f.feature, f.value FROM products AS p LEFT JOIN features AS f ON f."product_id" = p.id WHERE p.id=${product_id};`
+    `SELECT p.id, p.name, p.slogan, p.description, p.category, p.default_price, f.feature, f.value FROM products AS p LEFT JOIN features AS f ON f."product_id" = p.id WHERE p.id=$1;`,
+    [product_id]
   );
 };
 
@@ -37,7 +41,8 @@ const getStylesById = (product_id) => {
       ))
       FROM skus WHERE skus."styleId" = styles.id)
     ))
-    FROM styles WHERE styles."productId"=${product_id};`
+    FROM styles WHERE styles."productId"=$1;`,
+    [product_id]
   );
 };
 
@@ -45,7 +50,8 @@ const getStylesById = (product_id) => {
 //deployed unopt 111ms
 const getRelatedById = (product_id) => {
   return pool.query(
-    `SELECT related_product_id FROM related WHERE current_product_id=${product_id}`
+    `SELECT related_product_id FROM related WHERE current_product_id=$1`,
+    [product_id]
   );
 };
 

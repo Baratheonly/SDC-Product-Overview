@@ -4,7 +4,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const router = require("./routes");
 const app = express();
-// const queries = require("./models/queries.js");
 
 app.use(express.json());
 app.use(cors());
