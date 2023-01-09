@@ -1,9 +1,11 @@
 require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
+import express, { Application, Request, Response } from "express";
+import cors from "cors";
+import morgan from "morgan";
+// import router from './routes';
 const router = require("./routes");
-const app = express();
+
+const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
@@ -11,10 +13,10 @@ app.use(morgan("dev"));
 
 app.use("/", router);
 
-const port = 3000;
+const port: number = 3000;
 
 //loader.io stress testing
-app.get(`/${process.env.LOADERIO}`, (req, res) => {
+app.get(`/${process.env.LOADERIO}`, (req: Request, res: Response) => {
   res.send(process.env.LOADERIO);
 });
 
