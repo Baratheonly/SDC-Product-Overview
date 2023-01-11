@@ -4,10 +4,6 @@
 
 Baratheonly is a project with the purpose of replacing an outdated unoptimized legacy API with an optimized API connecting to PostgreSQL. This server was horizontally scaled using NGINX load balancer with 6 AWS EC2 instance. This server was also optimized further by implementing NGINX caching & B-tree indexing.
 
-## Demo
-
-![site demo](./dist/assets/verde-preview.gif)
-
 ## Contributors
 
 - [Kenny Tran](https://github.com/kennytran95) - Product Overview
