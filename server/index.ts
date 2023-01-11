@@ -21,7 +21,7 @@ app.get(`/${process.env.LOADERIO}`, (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`Express server is listening on port ${port}`);
 });
 
 module.exports = app;

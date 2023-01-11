@@ -1,0 +1,21 @@
+version: "1"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - SDC-Product-Overview:/data/db
+  app:
+    container_name: SDC-Product-Overview
+    restart: always
+    build: .
+    ports:
+      - "4000:3000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+volumes:
+  SDC-Product-Overview:

@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model features {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  feature    String   @db.VarChar(30)
+  value      String   @db.VarChar(100)
+  products   products @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([product_id], map: "feat_prod_id_idx")
+}
+
+model photos {
+  id            Int    @id @default(autoincrement())
+  styleId       Int
+  url           String
+  thumbnail_url String
+  styles        styles @relation(fields: [styleId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "photos_styleid_fkey")
+
+  @@index([styleId], map: "phot_sty_id_idx")
+}
+
+model products {
+  id            Int        @id @default(autoincrement())
+  name          String     @db.VarChar(30)
+  slogan        String     @db.VarChar(200)
+  description   String     @db.VarChar(1000)
+  category      String     @db.VarChar(60)
+  default_price String?    @db.VarChar(20)
+  features      features[]
+  related       related[]
+  styles        styles[]
+
+  @@index([id], map: "prod_id_idx")
+}
+
+model related {
+  id                 Int      @id @default(autoincrement())
+  current_product_id Int
+  related_product_id Int
+  products           products @relation(fields: [current_product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([current_product_id], map: "rel_curr_prod_id_idx")
+}
+
+model skus {
+  id       Int    @id @default(autoincrement())
+  styleId  Int
+  size     String @db.VarChar(8)
+  quantity Int
+  styles   styles @relation(fields: [styleId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "skus_styleid_fkey")
+
+  @@index([styleId], map: "skus_sty_id_idx")
+}
+
+model styles {
+  id             Int      @id @default(autoincrement())
+  productId      Int
+  name           String   @db.VarChar(60)
+  sale_price     String?  @db.VarChar(20)
+  original_price String   @db.VarChar(10)
+  default_style  String   @db.Bit(1)
+  photos         photos[]
+  skus           skus[]
+  products       products @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "styles_productid_fkey")
+
+  @@index([productId], map: "sty_prod_id_idx")
+}

@@ -9,6 +9,15 @@ const postgresPool = new Pool({
   password: process.env.DBPASSWORD,
 });
 
-postgresPool.connect();
+postgresPool.on("error", (err: any) => {
+  console.error("Unexpected error on idle client", err);
+  process.exit(-1);
+});
+
+try {
+  postgresPool.connect();
+} catch (err) {
+  console.error(err);
+}
 
 module.exports = postgresPool;

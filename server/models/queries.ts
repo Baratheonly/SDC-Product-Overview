@@ -1,4 +1,4 @@
-const pool = require("../db.js");
+const pool = require("../db.ts");
 
 //init query 34.270ms
 //deployed unopt 114ms

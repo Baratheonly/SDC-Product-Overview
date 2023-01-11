@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "nodemon server/index.ts"
+    "start": "node server/index.ts",
+    "devStart": "nodemon server/index.ts"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "@types/morgan": "^1.9.4",
     "babel-jest": "^28.1.1",
     "jest": "^28.1.1",
+    "prisma": "^4.8.1",
     "supertest": "^6.2.3"
   }
 }
