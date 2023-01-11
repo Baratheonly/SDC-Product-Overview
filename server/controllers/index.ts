@@ -1,9 +1,16 @@
 const queries = require("../models/queries");
+import { Request, Response } from "express";
+import {
+  product,
+  feature,
+  productStyles,
+  relatedProduct,
+} from "../models/types";
 
 module.exports = {
-  getProducts: async function (req, res) {
+  getProducts: async function (req: Request, res: Response) {
     let count = req.query.count || 5;
-    let page = req.query.page - 1 || 0;
+    let page = Number(req.query.page) - 1 || 0;
     try {
       let result = await queries.getProducts(count, page);
       res.status(200).send(result.rows);
@@ -11,14 +18,14 @@ module.exports = {
       res.status(500).send(err);
     }
   },
-  getProductsById: async function (req, res) {
-    const productId = req.params.product_id;
-    if (isNaN(productId)) {
+  getProductsById: async function (req: Request, res: Response) {
+    const productId: number = Number(req.params.product_id);
+    if (isNaN(Number(productId))) {
       res.status(400).send("Invalid Search. Please use a valid product id.");
     } else {
       try {
         let result = await queries.getProductsById(productId);
-        const formammatedResult = {
+        const formammatedResult: product = {
           id: result.rows[0].id,
           name: result.rows[0].name,
           slogan: result.rows[0].slogan,
@@ -27,9 +34,9 @@ module.exports = {
           default_price: result.rows[0].default_price,
           features: [],
         };
-        result.rows.forEach((features) => {
+        result.rows.forEach((features: any) => {
           const { feature, value } = features;
-          const featureEntry = {
+          const featureEntry: feature = {
             feature,
             value,
           };
@@ -41,14 +48,14 @@ module.exports = {
       }
     }
   },
-  getStylesById: async function (req, res) {
-    const productId = req.params.product_id;
-    if (isNaN(productId)) {
+  getStylesById: async function (req: Request, res: Response) {
+    const productId: number = Number(req.params.product_id);
+    if (isNaN(Number(productId))) {
       res.status(400).send("Invalid Search. Please use a valid product id.");
     } else {
       try {
         let result = await queries.getStylesById(productId);
-        let formammatedResult = {
+        let formammatedResult: productStyles = {
           product_id: req.params.product_id,
           result: result.rows[0].json_agg,
         };
@@ -58,15 +65,15 @@ module.exports = {
       }
     }
   },
-  getRelatedById: async function (req, res) {
-    const productId = req.params.product_id;
-    if (isNaN(productId)) {
+  getRelatedById: async function (req: Request, res: Response) {
+    const productId: number = Number(req.params.product_id);
+    if (isNaN(Number(productId))) {
       res.status(400).send("Invalid Search. Please use a valid product id.");
     } else {
       try {
         let result = await queries.getRelatedById(productId);
-        const relatedProducts = [];
-        result.rows.forEach((value) =>
+        const relatedProducts: number[] = [];
+        result.rows.forEach((value: relatedProduct) =>
           relatedProducts.push(value.related_product_id)
         );
         res.status(200).send(relatedProducts);
